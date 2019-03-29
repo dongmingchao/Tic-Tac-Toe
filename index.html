@@ -21,6 +21,13 @@
         <input type="radio" name="mode" value="vs" >Player 1 vs Player 2 <br>
         <input type="radio" name="mode" value="vscom" checked>Player vs Computer <br>
         <input type="radio" name="mode" value="com">Computer vs Computer <br>
+        AI思考方式：
+        <select name="ai-level">
+            <option value="random">随机</option>
+            <option value="master" selected>遍历整个棋盘</option>
+        </select><br>
+        宽度：<input type="number" name="width" value="3"><br>
+        高度：<input type="number" name="height" value="3">
     </form>
     <button onclick="GameStart()" id="start-btn">开始</button>
 </body>

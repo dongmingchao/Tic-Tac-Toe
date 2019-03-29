@@ -1,13 +1,15 @@
 class UI {
-    constructor(game){
+    constructor(game) {
         this.game = game;
         this.paneDiv = [];
     }
     initPane(pane) {
         this.checkerboardDiv = pane;
-        for (let i = 0; i < 9; i++) {
+        for (let i = 0; i < this.game.chessPane.range; i++) {
             let check = document.createElement('div');
             check.classList.add('check');
+            check.style.width = Math.floor(100 / this.game.chessPane.width) + '%';
+            check.style.height = Math.ceil(100 / this.game.chessPane.height) + '%';
             let placeholder = document.createElement('label');
             placeholder.classList.add('placeholder');
             placeholder.innerText = i;

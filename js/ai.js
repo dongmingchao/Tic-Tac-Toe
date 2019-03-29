@@ -1,8 +1,6 @@
 function AIAction() {
     let emptyCell = getEmptyCell(game.chessPane.checkMap);
-    // let down = mind.random(emptyCell);
-    // paneDiv[down].click();
-    let down = mind.master();
+    let down = mind[settings['ai-level'].value](emptyCell);
     setTimeout(() => {
         game.ui.paneDiv[down].click();
     },AI.thinkDelay);

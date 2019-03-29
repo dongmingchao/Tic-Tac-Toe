@@ -5,18 +5,14 @@ class Game {
             put: null,
             win: null
         }
-        this.chessPane = {
-            width: 3,
-            height: 3,
-            range: null,
-            checkMap: null,
-            emptyCells: []
-        }
+        this.chessPane = { emptyCells: [] }
+        this.chessPane.width = parseInt(settings.width.value);
+        this.chessPane.height = parseInt(settings.height.value);
+        this.chessPane.range = this.chessPane.width * this.chessPane.height;
+        this.chessPane.checkMap = new Array(this.chessPane.range);
         this.ui = new UI(this);
     }
     startUp() {
-        this.chessPane.range = this.chessPane.width * this.chessPane.height;
-        this.chessPane.checkMap = new Array(this.chessPane.range);
         for (let i = 0; i < this.chessPane.range; i++) this.chessPane.emptyCells.push(i);
         let pane = document.getElementsByClassName('pane');
         this.ui.initPane(pane[0]);
@@ -85,16 +81,19 @@ class Game {
     }
     checkWin(index, calc, step) {
         let start = calc(index);
+        // console.log('before', index, start);
         while (start > -1 && (this.chessPane.checkMap[index - step] === this.state.hand.chess)) {
-            index -= step;
-            let nstart = calc(index);
+            let nstart = calc(index - step);
             //将检查位置限制在落点前后一列，这样不会出现5,2 => 3,0 => 7,1的情况
-            if (Math.abs(nstart - start) === 1) start = nstart;
-            else return;
+            // console.log('nstart', index, nstart, start);
+            if (Math.abs(nstart - start) === 1) {
+                start = nstart;
+                index -= step;
+            } else break;
         }
         let score = 0;
         let scoreSet = [];
-        // console.log('start', index, start);
+        // console.log('start', index, start, step);
         while (start < this.chessPane.width && (this.chessPane.checkMap[index] === this.state.hand.chess)) {
             scoreSet.push(index);
             score++;
